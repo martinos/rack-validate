@@ -1,23 +1,8 @@
-require 'rubygems'
-require 'rake'
+require 'bundler'
+Bundler::GemHelper.install_tasks
+Bundler.require(:default, :development)
 
-begin
-  require 'jeweler'
-  Jeweler::Tasks.new do |gem|
-    gem.name = "rack-validate"
-    gem.summary = %Q{Rack middleware that validates HTML with w3c validator and displays result in page.}
-    gem.description = %Q{Rack middleware that validates HTML with w3c validator and displays result in page.}
-    gem.email = "Jonas714@gmail.com"
-    gem.homepage = "http://github.com/nerdEd/rack-validate"
-    gem.authors = ["Ed Schmalzle"]
-    gem.add_development_dependency "thoughtbot-shoulda"
-    gem.add_development_dependency "rspec"
-    gem.add_dependency 'w3c_validators'
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
-  end
-rescue LoadError
-  puts "Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler"
-end
+require 'rake'
 
 require 'spec/rake/spectask'
 Spec::Rake::SpecTask.new(:spec) do |spec|
@@ -38,9 +23,7 @@ rescue LoadError
   end
 end
 
-task :test => :check_dependencies
-
-task :default => :test
+task :default => :spec
 
 require 'rake/rdoctask'
 Rake::RDocTask.new do |rdoc|
