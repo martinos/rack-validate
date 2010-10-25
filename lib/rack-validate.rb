@@ -15,10 +15,10 @@ module Rack
     def call( env )
       status, headers, body = @app.call(env)
       resp = Rack::Response.new(body, status, headers)
-      
       request = Rack::Request.new( env )
       if request.params['rack-validate'] == "true"
         if headers['Content-Type'] =~ /text\/html|application\/xhtml\+xml/
+  
           body = resp.body.dup
         
           issues = Validator.validate( body )
